@@ -3,56 +3,113 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Evergreen Pest & Home Care</title>
+  <title>Your Brand · Pest & Home Services</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap">
-      <a class="brand" href="./index.html">🍃 Evergreen <span class="muted">Pest & Home Care</span></a>
-      <nav class="mainnav">
-        <a href="#">Pest Control</a>
-        <a href="#">Wildlife</a>
-        <a href="#">Commercial</a>
-        <a href="#">Resources</a>
-        <a class="btn login" href="./login.html">Customer Login</a>
+  <!-- Top utility bar -->
+  <div class="utility">
+    <div class="wrap util-inner">
+      <div class="util-left">
+        <span class="phone">Call: <a href="tel:18001234567">1.800.123.4567</a></span>
+        <a class="util-link" href="#contact">Contact Us</a>
+      </div>
+      <div class="util-right">
+        <a class="util-link" href="#login">Customer Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main header -->
+  <header class="header">
+    <div class="wrap head-inner">
+      <a class="brand" href="#" aria-label="Your Brand Home">
+        <!-- Neutral placeholder brand (no logo asset) -->
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">Your Brand</span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">Menu</button>
+        <ul id="nav-list" class="nav-list">
+          <li><a href="#residential">Residential</a></li>
+          <li><a href="#commercial">Commercial</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#library">Pest Library</a></li>
+          <li><a href="#blog">Blog</a></li>
+        </ul>
       </nav>
     </div>
   </header>
+
+  <!-- Hero -->
   <section class="hero">
-    <div class="wrap hero-grid">
+    <div class="wrap hero-inner">
       <div class="hero-copy">
-        <h1>Safe. Smart. Humane.</h1>
-        <p>Professional solutions for homes & businesses. Local techs, pet-friendly products, guaranteed results.</p>
+        <h1>Living with pests? <span class="nowrap">Not an option.</span></h1>
+        <p>Safe, reliable protection for homes and businesses—scheduled on your terms, delivered by local pros.</p>
         <div class="cta-row">
-          <a class="btn primary" href="#">Get a Free Quote</a>
-          <a class="btn ghost" href="#">Explore Services</a>
+          <a class="btn primary" href="#services">Our Services</a>
+          <a class="btn ghost" href="#quote">Free Quote</a>
+          <a class="btn ghost" href="#plan">Protection Plans</a>
         </div>
       </div>
       <div class="hero-card">
-        <h3>Why Evergreen?</h3>
+        <h3>Why choose us?</h3>
         <ul>
-          <li>Seasonal protection plans</li>
-          <li>Wildlife exclusion & prevention</li>
-          <li>Eco‑forward approach</li>
-          <li>Same‑week scheduling</li>
+          <li>Family & pet‑friendly solutions</li>
+          <li>Seasonal prevention & monitoring</li>
+          <li>Licensed, local technicians</li>
+          <li>Flexible scheduling</li>
         </ul>
       </div>
     </div>
   </section>
-  <section class="quick-tiles">
-    <div class="wrap tiles">
-      <a class="tile" href="#"><h4>Ants & Crawlers</h4><p>Stop trails and nests fast.</p></a>
-      <a class="tile" href="#"><h4>Rodents</h4><p>Seal, trap, and prevent.</p></a>
-      <a class="tile" href="#"><h4>Wasps & Hornets</h4><p>Nest removal & treatment.</p></a>
-      <a class="tile" href="#"><h4>Schedule an Inspection</h4><p>Pick a time that works.</p></a>
+
+  <!-- Quick tiles -->
+  <section class="tiles">
+    <div class="wrap tiles-inner">
+      <a class="tile" href="#ants"><h4>Ants & Crawlers</h4><p>Stop trails and nests fast.</p></a>
+      <a class="tile" href="#rodents"><h4>Rodents</h4><p>Seal, trap, and prevent.</p></a>
+      <a class="tile" href="#wasps"><h4>Wasps & Hornets</h4><p>Safe nest removal.</p></a>
+      <a class="tile" href="#inspection"><h4>Schedule Inspection</h4><p>Pick a time that works.</p></a>
     </div>
   </section>
-  <footer class="sitefoot">
-    <div class="wrap">
-      <p>© <span id="y"></span> Evergreen Pest & Home Care · Demo site for private support chat.</p>
+
+  <!-- Content band -->
+  <section class="band">
+    <div class="wrap band-inner">
+      <div class="band-copy">
+        <h2>Trusted by homeowners & businesses</h2>
+        <p>From one‑time treatments to year‑round protection, our licensed team uses proven methods and modern products to keep your spaces comfortable.</p>
+      </div>
+      <div class="band-cta">
+        <a class="btn primary" href="#quote">Get a Free Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap foot-inner">
+      <nav class="foot-nav">
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <small>© <span id="y"></span> Your Brand. Original layout inspired structure only; no third‑party logos or content used.</small>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // Simple mobile nav
+    const btn = document.querySelector('.nav-toggle');
+    const list = document.getElementById('nav-list');
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      list.classList.toggle('open');
+    });
+  </script>
 </body>
 </html>
