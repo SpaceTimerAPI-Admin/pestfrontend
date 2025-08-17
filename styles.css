@@ -3,7 +3,6 @@
 html,body{margin:0;padding:0}
 :root{
   --ink:#0e1a12;
-  --muted:#6b7280;
   --line:#e5efe7;
   --bg:#f6faf7;
   --card:#ffffff;
@@ -17,7 +16,6 @@ body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-se
 /* Utility bar */
 .utility{background:#0f3d20;color:#e6f6ed;font-size:14px}
 .util-inner{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
-.util-left,.util-right{display:flex;align-items:center;gap:14px}
 .util-link{color:#c3ecd6;text-decoration:none}
 .util-link:hover{color:#fff}
 .phone a{color:#fff;text-decoration:none}
@@ -25,9 +23,7 @@ body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-se
 /* Header */
 .header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
 .head-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;font-size:20px}
-.brand-mark{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:inline-block}
-.brand-text{letter-spacing:.2px}
+.brand-img{height:40px;width:auto;display:block}
 
 /* Nav */
 .nav-toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px}
