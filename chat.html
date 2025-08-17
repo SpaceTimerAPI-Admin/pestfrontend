@@ -45,7 +45,7 @@
       addLine('Connected. An agent will join shortly.', 'sys');
     });
 
-    socket.on('message', (m) => addLine(m.text, m.role === 'agent' ? 'agent' : 'client'));
+    socket.on('message', (m) => addLine(m.text, m.role === 'agent' ? 'agent' : (m.role === 'sys' ? 'sys' : 'client')));
     socket.on('ended', () => { addLine('Session ended. Returning to home...', 'sys'); setTimeout(() => location.href='./index.html', 2500); });
 
     form.addEventListener('submit', (e) => {
@@ -56,7 +56,10 @@
       input.value = '';
     });
 
-    window.addEventListener('beforeunload', () => socket.emit('leave', { room: id, role: 'client' }));
+    window.addEventListener('beforeunload', () => {
+      socket.emit('closed', { room: id, role: 'client', how: 'browser' });
+      socket.emit('leave', { room: id, role: 'client' });
+    });
   </script>
 </body>
 </html>

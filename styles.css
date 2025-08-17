@@ -23,11 +23,17 @@ body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-se
 .sitefoot{border-top:1px solid #e7efe7;background:#fff;margin-top:18px}
 .card{background:#fff;border:1px solid #e6efe7;border-radius:14px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
 .auth{padding:28px 18px}
-.chatwrap{padding:20px 18px}
-.messages{height:62vh;overflow:auto;background:#fff;border:1px solid #e6efe7;border-radius:12px;padding:12px;margin-bottom:12px}
-.line{padding:8px 10px;border-radius:8px;margin-bottom:8px;max-width:70%}
+.chatwrap{padding:20px 18px;display:flex;flex-direction:column;height:calc(100vh - 120px)}
+.messages{flex:1;min-height:0;overflow:auto;background:#fff;border:1px solid #e6efe7;border-radius:12px;padding:12px;margin-bottom:12px}
+.line{padding:8px 10px;border-radius:8px;margin-bottom:8px;max-width:80%}
 .line.client{background:#e1f5ea;align-self:flex-end}
 .line.agent{background:#eaf7e1;align-self:flex-start}
 .line.sys{background:#fff3cd;align-self:center}
-.composer{display:flex;gap:8px}
-.composer input{flex:1;padding:10px;border-radius:10px;border:1px solid #dfeade;background:#fff}
+.composer{display:flex;gap:8px;position:sticky;bottom:0;background:#fff;padding-bottom:10px}
+.composer input{flex:1;padding:12px;border-radius:10px;border:1px solid #dfeade;background:#fff;font-size:16px}
+@media (max-width: 640px){
+  .hero-grid{grid-template-columns:1fr}
+  .mainnav a{margin:0 6px}
+  .line{max-width:90%}
+  .btn{padding:12px 14px}
+}
