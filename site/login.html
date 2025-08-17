@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login · Evergreen</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./index.html">🍃 Evergreen <span class="muted">Pest & Home Care</span></a>
+      <nav class="mainnav"><a href="./index.html">Home</a></nav>
+    </div>
+  </header>
+  <main class="wrap auth">
+    <div class="card">
+      <h2>Customer Login</h2>
+      <p>If you need immediate help, you can start a secure, private chat.</p>
+      <button class="btn primary" id="supportBtn">Request Support</button>
+      <p id="status" class="muted"></p>
+    </div>
+  </main>
+  <script>
+    const btn = document.getElementById('supportBtn');
+    const status = document.getElementById('status');
+    btn.addEventListener('click', async () => {
+      status.textContent = 'Starting secure chat...';
+      try {
+        const resp = await fetch(`${window.CHAT_SERVER_URL}/api/start-session`, { method: 'POST' });
+        if (!resp.ok) throw new Error('Failed to start session');
+        const data = await resp.json();
+        window.location.href = `./chat.html?id=${encodeURIComponent(data.id)}`;
+      } catch (e) {
+        status.textContent = 'Error starting support chat. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
