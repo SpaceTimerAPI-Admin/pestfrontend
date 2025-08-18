@@ -3,40 +3,62 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login · JP Pest Services</title>
+  <title>Customer Login</title>
   <link rel="stylesheet" href="./styles.css" />
+  <!-- Make sure config.js loads BEFORE any script that uses CHAT_SERVER_URL -->
   <script src="./config.js"></script>
+  <style>
+    /* minimal guard styles in case styles.css got edited */
+    .card{background:#fff;border:1px solid #e6efe7;border-radius:14px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.05);max-width:560px;margin:32px auto}
+    .btn{display:inline-block;padding:12px 16px;border-radius:10px;border:0;text-decoration:none;font-weight:700;cursor:pointer;background:#0a7f3f;color:#fff}
+    .muted{color:#4b5563}
+    .wrap{max-width:1120px;margin:0 auto;padding:14px 18px}
+    .topbar{background:#fff;border-bottom:1px solid #e7efe7;position:sticky;top:0;z-index:10}
+    .brand{font-weight:800;text-decoration:none;color:#0f172a}
+  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="wrap">
-      <a class="brand" href="./index.html">🍃 JP Pest Services <span class="muted"></span></a>
-      <nav class="mainnav"><a href="./index.html">Home</a></nav>
+      <a class="brand" href="./index.html">Home</a>
     </div>
   </header>
-  <main class="wrap auth">
+
+  <main class="wrap">
     <div class="card">
       <h2>Customer Login</h2>
-      <p>If you need immediate help, you can start a secure, private chat.</p>
-      <button class="btn primary" id="supportBtn">Request Support</button>
-      <p id="status" class="muted"></p>
+      <p>Need help right now? Start a secure, private chat.</p>
+      <button id="supportBtn" class="btn">Request Support</button>
+      <p id="status" class="muted" role="status" aria-live="polite"></p>
     </div>
   </main>
+
   <script>
-    const btn = document.getElementById('supportBtn');
-    const status = document.getElementById('status');
-    btn.addEventListener('click', async () => {
-      status.textContent = 'Starting secure chat...';
-      try {
-        const resp = await fetch(`${window.CHAT_SERVER_URL}/api/start-session`, { method: 'POST' });
-        if (!resp.ok) throw new Error('Failed to start session');
-        const data = await resp.json();
-        window.location.href = `./chat.html?id=${encodeURIComponent(data.id)}`;
-      } catch (e) {
-        console.error(e);
-        status.textContent = 'Error starting support chat. Please try again.';
+    // Defensive guards to surface errors clearly
+    (function(){
+      const btn = document.getElementById('supportBtn');
+      const status = document.getElementById('status');
+
+      if (!window.CHAT_SERVER_URL) {
+        console.error('CHAT_SERVER_URL is not defined. Check config.js.');
+        status.textContent = 'Configuration error: CHAT_SERVER_URL missing.';
+        return;
       }
-    });
+
+      btn.addEventListener('click', async () => {
+        status.textContent = 'Starting secure chat...';
+        try {
+          const resp = await fetch(`${window.CHAT_SERVER_URL.replace(/\/$/,'')}/api/start-session`, { method: 'POST' });
+          if (!resp.ok) throw new Error('Failed to start session (HTTP ' + resp.status + ')');
+          const data = await resp.json();
+          if (!data || !data.id) throw new Error('Invalid response from server');
+          window.location.href = `./chat.html?id=${encodeURIComponent(data.id)}`;
+        } catch (e) {
+          console.error(e);
+          status.textContent = 'Error starting support chat: ' + (e?.message || 'Unknown error');
+        }
+      });
+    })();
   </script>
 </body>
 </html>
