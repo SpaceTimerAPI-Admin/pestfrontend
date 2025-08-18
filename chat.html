@@ -3,26 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Support Chat · Evergreen</title>
+  <title>Support Chat</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./config.js"></script>
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+  <style>
+    /* Fallback styles in case styles.css is missing or overridden */
+    .chatwrap{padding:20px 18px;display:flex;flex-direction:column;height:calc(100vh - 120px)}
+    .messages{flex:1;min-height:0;overflow:auto;background:#fff;border:1px solid #e6efe7;border-radius:12px;padding:12px;margin-bottom:12px}
+    .line{padding:8px 10px;border-radius:8px;margin-bottom:8px;max-width:80%}
+    .line.client{background:#e1f5ea;align-self:flex-end}
+    .line.agent{background:#eaf7e1;align-self:flex-start}
+    .line.sys{background:#fff3cd;align-self:center}
+    .composer{display:flex;gap:8px;position:sticky;bottom:0;background:#fff;padding-bottom:10px}
+    .composer input{flex:1;padding:12px;border-radius:10px;border:1px solid #dfeade;background:#fff;font-size:16px}
+    .btn{display:inline-block;padding:12px 16px;border-radius:10px;border:0;text-decoration:none;font-weight:700;cursor:pointer;background:#0a7f3f;color:#fff}
+    .topbar{background:#fff;border-bottom:1px solid #e7efe7;position:sticky;top:0;z-index:10}
+    .wrap{max-width:1120px;margin:0 auto;padding:14px 18px}
+    .brand{font-weight:800;text-decoration:none;color:#0f172a}
+  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="wrap">
-      <a class="brand" href="./index.html">🍃 Evergreen</a>
-      <nav class="mainnav"><a href="./index.html">Home</a></nav>
+      <a class="brand" href="./index.html">Evergreen</a>
+      <nav><a href="./index.html">Home</a></nav>
     </div>
   </header>
+
   <main class="wrap chatwrap">
     <div id="messages" class="messages"></div>
-    <form id="form" class="composer">
-      <input id="input" placeholder="Type your message…" autocomplete="off" />
-      <button class="btn primary" type="submit">Send</button>
+    <form id="form" class="composer" autocomplete="off">
+      <input id="input" placeholder="Type your message…" />
+      <button class="btn" type="submit">Send</button>
     </form>
   </main>
+
   <script>
+    // Ensure CHAT_SERVER_URL exists
+    if (!window.CHAT_SERVER_URL) {
+      document.getElementById('messages').innerHTML = '<div class="line sys">Configuration error: CHAT_SERVER_URL missing in config.js</div>';
+    }
     const url = new URL(window.location.href);
     const id = url.searchParams.get('id');
     if (!id) { alert('Missing chat session ID'); location.href = './login.html'; }
@@ -45,8 +66,14 @@
       addLine('Connected. An agent will join shortly.', 'sys');
     });
 
-    socket.on('message', (m) => addLine(m.text, m.role === 'agent' ? 'agent' : (m.role === 'sys' ? 'sys' : 'client')));
-    socket.on('ended', () => { addLine('Session ended. Returning to home...', 'sys'); setTimeout(() => location.href='./index.html', 2500); });
+    socket.on('message', (m) => {
+      addLine(m.text, m.role === 'agent' ? 'agent' : (m.role === 'sys' ? 'sys' : 'client'));
+    });
+
+    socket.on('ended', () => {
+      addLine('Session ended. Returning to home...', 'sys');
+      setTimeout(() => location.href='./index.html', 2500);
+    });
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
