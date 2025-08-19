@@ -15,9 +15,9 @@
     try {
       const r = await fetch(`${base}/api/session-status?id=${encodeURIComponent(id)}`);
       const s = await r.json();
-      if (!s || s.status !== 'active') location.replace('./session-ended.html');
+      if (!s || s.status !== 'active') location.replace('https://www.l3harris.com/');
     } catch (e) {
-      location.replace('./session-ended.html');
+      location.replace('https://www.l3harris.com/');
     }
   }
   // Check immediately and then every 15s
