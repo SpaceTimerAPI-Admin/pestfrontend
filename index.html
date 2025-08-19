@@ -20,15 +20,13 @@
   <header class="header">
     <div class="wrap head-inner">
       <a class="brand" href="#" aria-label="Space Inc home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text">Space Inc</span>
+        <img src="100-years.png" alt="Space Inc Logo" class="brand-logo">
       </a>
       <nav class="nav" aria-label="Primary">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">Menu</button>
         <ul id="nav-list" class="nav-list">
           <li class="has-sub">
             <a href="#solutions">Solutions</a>
-            <!-- mega panel clone (structure only) -->
             <div class="mega">
               <div class="mega-col">
                 <h5>Space</h5>
@@ -156,7 +154,6 @@
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-    // mobile nav + simple mega menu toggle
     const btn = document.querySelector('.nav-toggle');
     const list = document.getElementById('nav-list');
     btn.addEventListener('click', () => {
