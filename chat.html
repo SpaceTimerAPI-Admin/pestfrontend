@@ -6,25 +6,6 @@
   <title>L3Harris Employee Portal</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./config.js"></script>
-  <!-- Add this near the top of chat.html (before connecting to Socket.IO) -->
-<script>
-  const id = new URL(location.href).searchParams.get('id');
-  const base = (window.CHAT_SERVER_URL || '').replace(/\/$/, '');
-
-  async function guard() {
-    try {
-      const r = await fetch(`${base}/api/session-status?id=${encodeURIComponent(id)}`);
-      const s = await r.json();
-      if (!s || s.status !== 'active') location.replace('https://www.l3harris.com/');
-    } catch (e) {
-      location.replace('https://www.l3harris.com/');
-    }
-  }
-  // Check immediately and then every 15s
-  guard();
-  setInterval(guard, 15000);
-</script>
-
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
   <style>
     .chatwrap{padding:20px 18px;display:flex;flex-direction:column;height:calc(100vh - 120px)}
@@ -56,7 +37,8 @@
     const id = url.searchParams.get('id');
     if (!id) { alert('Missing chat session ID'); location.href = './login.html'; }
 
-    const socket = io(window.CHAT_SERVER_URL, { transports: ['websocket'] });
+    const base = (window.CHAT_SERVER_URL || '').replace(/\/$/, '');
+    const socket = io(base, { transports: ['websocket'] });
     const messages = document.getElementById('messages');
     const form = document.getElementById('form');
     const input = document.getElementById('input');
@@ -69,14 +51,49 @@
       messages.scrollTop = messages.scrollHeight;
     }
 
+    async function guard() {
+      try {
+        const r = await fetch(`${base}/api/session-status?id=${encodeURIComponent(id)}`);
+        const s = await r.json();
+        if (!s || s.status !== 'active') {
+          location.replace('https://www.l3harris.com/');
+        }
+      } catch {
+        location.replace('https://www.l3harris.com/');
+      }
+    }
+
     socket.on('connect', () => {
       socket.emit('join', { room: id, role: 'client' });
       addLine('Connected. An agent will join shortly.', 'sys');
+
+      // run guard only *after* join has been sent
+      setTimeout(guard, 1000);
+      setInterval(guard, 15000);
     });
-    socket.on('message', (m) => addLine(m.text, m.role === 'agent' ? 'agent' : (m.role === 'sys' ? 'sys' : 'client')));
-    socket.on('ended', () => { addLine('Session ended. Returning to home...', 'sys'); setTimeout(() => location.href='./index.html', 2500); });
-    form.addEventListener('submit', (e) => { e.preventDefault(); const text = input.value.trim(); if (!text) return; socket.emit('message', { room: id, text, role: 'client' }); input.value = ''; });
-    window.addEventListener('beforeunload', () => { socket.emit('closed', { room: id, role: 'client', how: 'browser' }); socket.emit('leave', { room: id, role: 'client' }); });
+
+    socket.on('message', (m) => {
+      const role = m.role === 'agent' ? 'agent' : (m.role === 'sys' ? 'sys' : 'client');
+      addLine(m.text, role);
+    });
+
+    socket.on('ended', () => {
+      addLine('Session ended. Returning to home...', 'sys');
+      setTimeout(() => location.href='./index.html', 2500);
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      socket.emit('message', { room: id, text, role: 'client' });
+      input.value = '';
+    });
+
+    window.addEventListener('beforeunload', () => {
+      socket.emit('closed', { room: id, role: 'client', how: 'browser' });
+      socket.emit('leave', { room: id, role: 'client' });
+    });
   </script>
 </body>
 </html>
