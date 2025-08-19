@@ -6,6 +6,25 @@
   <title>L3Harris Employee Portal</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./config.js"></script>
+  <!-- Add this near the top of chat.html (before connecting to Socket.IO) -->
+<script>
+  const id = new URL(location.href).searchParams.get('id');
+  const base = (window.CHAT_SERVER_URL || '').replace(/\/$/, '');
+
+  async function guard() {
+    try {
+      const r = await fetch(`${base}/api/session-status?id=${encodeURIComponent(id)}`);
+      const s = await r.json();
+      if (!s || s.status !== 'active') location.replace('./session-ended.html');
+    } catch (e) {
+      location.replace('./session-ended.html');
+    }
+  }
+  // Check immediately and then every 15s
+  guard();
+  setInterval(guard, 15000);
+</script>
+
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
   <style>
     .chatwrap{padding:20px 18px;display:flex;flex-direction:column;height:calc(100vh - 120px)}
