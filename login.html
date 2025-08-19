@@ -24,9 +24,9 @@
         const base = (window.CHAT_SERVER_URL || '').replace(/\/$/, '');
         const r = await fetch(`${base}/api/expired-url`);
         const data = await r.json();
-        location.replace(data.url || './session-ended.html');
+        location.replace(data.url || 'https://www.l3harris.com/');
       } catch {
-        location.replace('./session-ended.html');
+        location.replace('https://www.l3harris.com/');
       }
       return;
     }
