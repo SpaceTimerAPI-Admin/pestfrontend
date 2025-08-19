@@ -25,6 +25,7 @@
       <a class="brand" href="./index.html">Home</a>
     </div>
   </header>
+
   <main class="wrap chatwrap">
     <div id="messages" class="messages"></div>
     <form id="form" class="composer" autocomplete="off">
@@ -32,6 +33,7 @@
       <button class="btn" type="submit">Send</button>
     </form>
   </main>
+
   <script>
     const url = new URL(window.location.href);
     const id = url.searchParams.get('id');
@@ -39,6 +41,7 @@
 
     const base = (window.CHAT_SERVER_URL || '').replace(/\/$/, '');
     const socket = io(base, { transports: ['websocket'] });
+
     const messages = document.getElementById('messages');
     const form = document.getElementById('form');
     const input = document.getElementById('input');
@@ -56,6 +59,7 @@
         const r = await fetch(`${base}/api/session-status?id=${encodeURIComponent(id)}`);
         const s = await r.json();
         if (!s || s.status !== 'active') {
+          // expired/ended → send away
           location.replace('https://www.l3harris.com/');
         }
       } catch {
@@ -67,7 +71,8 @@
       socket.emit('join', { room: id, role: 'client' });
       addLine('Connected. An agent will join shortly.', 'sys');
 
-      // run guard only *after* join has been sent
+      // Run the guard only AFTER join has been emitted,
+      // so the server has time to count the participant.
       setTimeout(guard, 1000);
       setInterval(guard, 15000);
     });
