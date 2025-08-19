@@ -61,20 +61,31 @@
     const err = document.getElementById('err');
     const answerEl = document.getElementById('answer');
 
+    async function startSession(answer) {
+      const base = (window.CHAT_SERVER_URL || '').replace(/\/$/, '');
+      const resp = await fetch(`${base}/api/start-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-portal-entry': '1'   // REQUIRED header so server knows we came via home
+        },
+        body: JSON.stringify({ answer })
+      });
+      return resp;
+    }
+
     btn.addEventListener('click', async () => {
       err.hidden = true;
       status.textContent = 'Verifying...';
+      btn.disabled = true;
       const answer = (answerEl.value || '').trim();
       try {
-        const resp = await fetch(`${window.CHAT_SERVER_URL.replace(/\/$/,'')}/api/start-session`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ answer })
-        });
+        const resp = await startSession(answer);
         if (resp.status === 401 || resp.status === 403) {
           status.textContent = '';
           err.hidden = false;
           answerEl.focus();
+          btn.disabled = false;
           return;
         }
         if (!resp.ok) throw new Error('Failed to start session (HTTP ' + resp.status + ')');
@@ -85,6 +96,7 @@
       } catch (e) {
         console.error(e);
         status.textContent = 'Error starting support chat: ' + (e?.message || 'Unknown error');
+        btn.disabled = false;
       }
     });
 
