@@ -3,40 +3,59 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JP Pest Services | Pest Control & Exterminator NH, MA, ME & VT</title>
+  <title>Space Inc — Integrated Space & Defense Technology</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <script src="/pageview.js" defer></script>
-
   <!-- Top utility bar -->
   <div class="utility">
     <div class="wrap util-inner">
-      <div class="util-left">
-        <span class="phone">Call: <a href="tel:18001234567">1.844.399.5097</a></span>
-        <a class="util-link" href="https://jp.myserviceaccount.com/">Contact Us</a>
-      </div>
-      <div class="util-right">
-        <a class="util-link" href="./login.html">Customer Login</a>
-      </div>
+      <a class="util-link" href="#careers">Careers</a>
+      <a class="util-link" href="#investors">Investors</a>
+      <a class="util-link" href="#contact">Contact</a>
     </div>
   </div>
 
-  <!-- Main header -->
+  <!-- Header / Navigation -->
   <header class="header">
     <div class="wrap head-inner">
-      <a class="brand" href="#" aria-label="Homepage">
-        <!-- Placeholder image for logo -->
-        <img src="100-Years.png" alt="Logo" class="brand-img" />
+      <a class="brand" href="#" aria-label="Space Inc home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">Space Inc</span>
       </a>
-      <nav class="nav" aria-label="Main navigation">
+      <nav class="nav" aria-label="Primary">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">Menu</button>
         <ul id="nav-list" class="nav-list">
-          <li><a href="https://www.jppestservices.com/residential-pest-control-solutions">Residential</a></li>
-          <li><a href="https://www.jppestservices.com/commercial-pest-control#industries">Commercial</a></li>
-          <li><a href="https://www.jppestservices.com/about-jp">About</a></li>
-          <li><a href="https://www.jppestservices.com/pest-library">Pest Library</a></li>
-          <li><a href="https://www.jppestservices.com/blog">Blog</a></li>
+          <li class="has-sub">
+            <a href="#solutions">Solutions</a>
+            <!-- mega panel clone (structure only) -->
+            <div class="mega">
+              <div class="mega-col">
+                <h5>Space</h5>
+                <a href="#">Space Communications</a>
+                <a href="#">SDA & ISR</a>
+                <a href="#">Payloads</a>
+              </div>
+              <div class="mega-col">
+                <h5>Air</h5>
+                <a href="#">Avionics & EW</a>
+                <a href="#">Airborne ISR</a>
+              </div>
+              <div class="mega-col">
+                <h5>Land/Sea</h5>
+                <a href="#">Tactical Radios</a>
+                <a href="#">Sensors & C2</a>
+              </div>
+              <div class="mega-col">
+                <h5>Cyber</h5>
+                <a href="#">Zero‑Trust</a>
+                <a href="#">Test & Evaluation</a>
+              </div>
+            </div>
+          </li>
+          <li><a href="#domains">Domains</a></li>
+          <li><a href="#innovation">Innovation</a></li>
+          <li><a href="#insights">News & Insights</a></li>
         </ul>
       </nav>
     </div>
@@ -46,45 +65,79 @@
   <section class="hero">
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <h1>Living with pests? <span class="nowrap">Not an option.</span></h1>
-        <p>Safe, reliable protection for homes and businesses—scheduled on your terms, delivered by local pros.</p>
+        <h1>Advancing secure space, air, land & cyber systems</h1>
+        <p>Space Inc delivers mission‑critical technology that connects, protects, and informs—across contested environments and at global scale.</p>
         <div class="cta-row">
-          <a class="btn primary" href="https://www.jppestservices.com/">Our Services</a>
-          <a class="btn ghost" href="https://www.jppestservices.com/">Free Quote</a>
-          <a class="btn ghost" href="https://www.jppestservices.com/">Protection Plans</a>
+          <a class="btn primary" href="#solutions">Explore Solutions</a>
+          <a class="btn ghost" href="#insights">Read Insights</a>
         </div>
       </div>
-      <div class="hero-card">
-        <h3>Why choose us?</h3>
-        <ul>
-          <li>Family & pet‑friendly solutions</li>
-          <li>Seasonal prevention & monitoring</li>
-          <li>Licensed, local technicians</li>
-          <li>Flexible scheduling</li>
-        </ul>
+      <div class="hero-media">
+        <div class="glow"></div>
       </div>
     </div>
   </section>
 
-  <!-- Quick tiles -->
-  <section class="tiles">
-    <div class="wrap tiles-inner">
-      <a class="tile" href="https://www.jppestservices.com/"><h4>Ants & Crawlers</h4><p>Stop trails and nests fast.</p></a>
-      <a class="tile" href="https://www.jppestservices.com/"><h4>Rodents</h4><p>Seal, trap, and prevent.</p></a>
-      <a class="tile" href="https://www.jppestservices.com/"><h4>Wasps & Hornets</h4><p>Safe nest removal.</p></a>
-      <a class="tile" href="https://www.jppestservices.com/"><h4>Schedule Inspection</h4><p>Pick a time that works.</p></a>
+  <!-- Ribbon KPIs -->
+  <section class="ribbon">
+    <div class="wrap ribbon-inner">
+      <div class="kpi"><strong>50+</strong><span>years of mission expertise</span></div>
+      <div class="kpi"><strong>1000+</strong><span>deployed systems</span></div>
+      <div class="kpi"><strong>24/7</strong><span>global support</span></div>
     </div>
   </section>
 
-  <!-- Content band -->
-  <section class="band">
+  <!-- Domains / Sectors -->
+  <section id="domains" class="sectors">
+    <div class="wrap">
+      <h2>Operational domains</h2>
+      <div class="tiles">
+        <a class="tile" href="#space"><h4>Space</h4><p>Responsive architectures, SDA, and secure payloads.</p></a>
+        <a class="tile" href="#air"><h4>Air</h4><p>Airborne ISR, EW, and networked avionics.</p></a>
+        <a class="tile" href="#land"><h4>Land</h4><p>Integrated sensors and software‑defined radios.</p></a>
+        <a class="tile" href="#sea"><h4>Sea</h4><p>Maritime surveillance and resilient communications.</p></a>
+        <a class="tile" href="#cyber"><h4>Cyber</h4><p>Zero‑trust architecture, test & evaluation.</p></a>
+        <a class="tile" href="#commercial"><h4>Commercial</h4><p>Critical infrastructure & enterprise connectivity.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions band -->
+  <section id="solutions" class="band">
     <div class="wrap band-inner">
       <div class="band-copy">
-        <h2>Trusted by homeowners & businesses</h2>
-        <p>From one‑time treatments to year‑round protection, our licensed team uses proven methods and modern products to keep your spaces comfortable.</p>
+        <h2>Integrated solutions for decisive advantage</h2>
+        <p>From space‑to‑tactical networks to multi‑domain command and control, our open systems and rapid engineering help customers field capability faster.</p>
       </div>
       <div class="band-cta">
-        <a class="btn primary" href="https://www.jppestservices.com/">Get a Free Quote</a>
+        <a class="btn secondary" href="#innovation">See how we innovate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights / News -->
+  <section id="insights" class="news">
+    <div class="wrap">
+      <div class="news-head">
+        <h2>News & insights</h2>
+        <a href="#" class="link">All news →</a>
+      </div>
+      <div class="news-grid">
+        <article class="card">
+          <h3>Space Inc introduces software‑defined tactical radio suite</h3>
+          <p>Our modular radios enable secure data exchange and coalition interoperability across contested environments.</p>
+          <a class="link" href="#">Learn more →</a>
+        </article>
+        <article class="card">
+          <h3>Demonstrating resilient space mesh networking</h3>
+          <p>Live on‑orbit experiment proves resilient crosslinks and autonomous routing for SDA missions.</p>
+          <a class="link" href="#">Read the brief →</a>
+        </article>
+        <article class="card">
+          <h3>AI‑enabled mission planning cuts timelines</h3>
+          <p>Human‑machine teaming improves speed to decision for joint all‑domain operations.</p>
+          <a class="link" href="#">See results →</a>
+        </article>
       </div>
     </div>
   </section>
@@ -93,18 +146,17 @@
   <footer class="footer">
     <div class="wrap foot-inner">
       <nav class="foot-nav">
-        <a href="https://www.jppestservices.com/">Privacy</a>
-        <a href="https://www.jppestservices.com/">Terms</a>
-        <a href="https://www.jppestservices.com/">Contact</a>
+        <a href="#ethics">Ethics & Compliance</a>
+        <a href="#suppliers">Suppliers</a>
+        <a href="#privacy">Privacy</a>
       </nav>
-      <small>© <span id="y"></span> © 2025 JP Pest Services. All Rights Reserved. Manage cookies Privacy policy Cookie policy Do not sell my personal information
-Maintained by Burke Advertising</small>
+      <small>© <span id="y"></span> Space Inc. All rights reserved.</small>
     </div>
   </footer>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-    // Simple mobile nav
+    // mobile nav + simple mega menu toggle
     const btn = document.querySelector('.nav-toggle');
     const list = document.getElementById('nav-list');
     btn.addEventListener('click', () => {
@@ -112,6 +164,9 @@ Maintained by Burke Advertising</small>
       btn.setAttribute('aria-expanded', String(!open));
       list.classList.toggle('open');
     });
+    const hasSub = document.querySelector('.has-sub');
+    hasSub.addEventListener('mouseenter', () => hasSub.classList.add('open'));
+    hasSub.addEventListener('mouseleave', () => hasSub.classList.remove('open'));
   </script>
 </body>
 </html>
