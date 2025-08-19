@@ -6,6 +6,11 @@
   <title>L3Harris Fast. Forward.</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
+<script>
+  // Mark that the user legitimately arrived via the home page this session
+  try { sessionStorage.setItem('came_via_home', '1'); } catch (e) {}
+</script>
+
 <body>
   <!-- Top utility bar -->
   <div class="utility">
